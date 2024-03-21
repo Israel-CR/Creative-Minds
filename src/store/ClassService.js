@@ -1,3 +1,4 @@
+import router from "@/router";
 import { defineStore } from "pinia";
 
 const classService = defineStore("classService", {
@@ -23,7 +24,7 @@ const classService = defineStore("classService", {
       })
         .then((response) => response.json())
         .then((data) => {
-          this.clases = data.clases;
+          this.clases = data?.clases;
         });
     },
     async getAClass(idClass) {
@@ -46,6 +47,47 @@ const classService = defineStore("classService", {
           // Si hay algun error, se redirecciona a login
         });
     },
+    async addClase(infoClass) {
+      console.log(infoClass);
+      await fetch("http://localhost:5000/api/clase/", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        },
+        body: JSON.stringify(infoClass),
+      })
+      .then(res=> res.json())
+      .then(data=>{
+        setTimeout(() => {
+          router.replace({name:'editarClase', params:{idClase:data?._id}})
+        }, 3000);
+        
+       
+      })
+      .catch(error=>{
+        console.log("error al procesar la clase", error)
+      })
+    },
+
+    async deleteClass(idClase){
+      await fetch("http://localhost:5000/api/clases/" + idClase, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        },
+        mode: "cors",
+        credentials: "include",}
+        ).then(res=>res.json())
+        .then(data=>{
+          return data
+        }).catch(error=>{
+          console.log(error)
+        })
+    },
     async AddActivity(idClass, actividad) {
       await fetch("http://localhost:5000/api/actividad/" + idClass, {
         method: "PUT",
@@ -56,12 +98,13 @@ const classService = defineStore("classService", {
         },
         mode: "cors",
         credentials: "include",
-        body:JSON.stringify(actividad)
+        body: JSON.stringify(actividad),
       })
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
-        }).catch((error) => {
+        })
+        .catch((error) => {
           console.log("error al procesar la solicitud", error);
           // Si hay algun error, se redirecciona a login
         });

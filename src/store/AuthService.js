@@ -1,13 +1,11 @@
-
-
 import { defineStore } from "pinia";
 
 const authService = defineStore("authService", {
   state: () => {
     return {
-      token: getUseAuth('token') ||  "",
+      token: getUseAuth("token") || "",
       user: {},
-      isAuthenticated:getUseAuth('isAuth') || false,
+      isAuthenticated: getUseAuth("isAuth") || false,
       errors: [],
     };
   },
@@ -37,16 +35,24 @@ const authService = defineStore("authService", {
           return false;
         }
         this.token = response.token;
-        this.isAuthenticated= true;
-        setUseAuth('token',this.token)
-        setUseAuth('isAuth',this.isAuthenticated)
+        this.isAuthenticated = true;
+        setUseAuth("token", this.token);
+        setUseAuth("isAuth", this.isAuthenticated);
         return true;
       } catch (error) {
-        console.log("este es el error",error);
+        console.log("este es el error", error);
         return false;
       }
     },
-    async register(nombre, fechaNacimiento, genero, usuario,rol, correo, password) {
+    async register(
+      nombre,
+      fechaNacimiento,
+      genero,
+      usuario,
+      rol,
+      correo,
+      password
+    ) {
       try {
         const res = await fetch("http://localhost:5000/api/register", {
           method: "POST",
@@ -55,12 +61,12 @@ const authService = defineStore("authService", {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            nombre:nombre,
+            nombre: nombre,
             fechaNacimiento: fechaNacimiento,
-            genero:genero,
-            rol:rol,
+            genero: genero,
+            rol: rol,
             usuario: usuario,
-            correo:correo,
+            correo: correo,
             password: password,
           }),
         });
@@ -76,9 +82,9 @@ const authService = defineStore("authService", {
           return false;
         }
         this.token = response.token;
-        this.isAuthenticated= true;
-        setUseAuth('token',this.token)
-        setUseAuth('isAuth',this.isAuthenticated)
+        this.isAuthenticated = true;
+        setUseAuth("token", this.token);
+        setUseAuth("isAuth", this.isAuthenticated);
         return true;
       } catch (error) {
         console.log(error);
@@ -92,8 +98,8 @@ const authService = defineStore("authService", {
       this.token = null;
 
       // Elimina el estado de autenticación y el token de localStorage
-      deleteUseAuth('isAuth');
-      deleteUseAuth('token');
+      deleteUseAuth("isAuth");
+      deleteUseAuth("token");
     },
 
     async getUser() {
@@ -107,9 +113,27 @@ const authService = defineStore("authService", {
         mode: "cors",
         credentials: "include",
       })
-        .then((res) => res.json())
+        .then((res) => {
+          if (res.ok) {
+            // La solicitud se completó con éxito, procesamos el JSON
+            return res.json();
+          } else {
+            // Marca al usuario como no autenticado y elimina el token
+            this.isAuthenticated = false;
+            this.token = null;
+            // Elimina el estado de autenticación y el token de localStorage
+            deleteUseAuth("isAuth");
+            deleteUseAuth("token");
+
+            // La solicitud falló, manejamos el error
+            console.error("La solicitud falló con código:", res.status);
+
+            // Puedes lanzar una excepción o devolver un valor indicando error
+            throw new Error("Error en la petición");
+          }
+        })
         .then((data) => {
-          this.user = data; 
+          this.user = data;
           // Actualiza el estado del componente con la respuesta
         })
         .catch((error) => {
@@ -119,7 +143,6 @@ const authService = defineStore("authService", {
     },
   },
 });
-
 
 function setUseAuth(key, value) {
   localStorage.setItem(key, JSON.stringify(value));

@@ -57,7 +57,13 @@ onMounted(async () => {
   <div
     className="bg-sky-200 mt-2 rounded-xl px-10 py-5 font-lato border border-black text-lg "
   >
+  <div class="flex justify-between">
     <h1 className="  text-2xl font-bold">Actividades</h1>
+    <button class="btn glass btn-info" onclick="addActivity.showModal()">
+      Agregar Actividad
+    </button>
+  </div>
+   
     <div
       v-for="actividad in infoClass?.Actividades"
       class="my-2 card bg-base-100 shadow-md"
