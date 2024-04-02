@@ -103,48 +103,10 @@ onMounted(async () => {
       </div>
     </div>
   
-    <p v-if="infoClass.Actividades=== 0">Esta clase aun no tiene actividades</p>
-    <button class="btn btn-success" onclick="addActivity.showModal()">
-      Agregar Actividad
-    </button>
+    <p v-if="!infoClass.Actividades">Esta clase aun no tiene actividades</p>
+   
   </div>
 
-  <div
-    className="bg-gray-200 mt-2 rounded-xl px-10 py-5 font-lato border border-black text-lg "
-  >
-    <h1 className=" text-2xl font-bold">Agregar Actividad</h1>
-    <div v-if="currentStep === 1">
-      <div className="py-2">
-        <label className="font-bold text-lg">Pregunta</label>
-        <div class="input rounded-full flex items-center gap-2">
-          <i class="fa fa-question text-2xl rounded-full"></i>
-          <input
-            class="grow"
-            v-model="infoActivity.pregunta"
-            type="text"
-            placeholder="ejemplo:Juan"
-          />
-        </div>
-      </div>
-
-      <div className="py-2">
-        <label className="font-bold text-lg">tipo de pregunta</label>
-        <div class="flex flex-wrap gap-3">
-          <button
-            v-for="tipo in tipoPregunta"
-            @click="selectTipo(tipo)"
-            class="btn bg-blue-300 rounded-xl"
-          >
-            {{ tipo }}
-            <i
-              v-if="infoActivity.tipo === tipo"
-              class="fa fa-check text-md"
-            ></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- Formulario para agregar una nueva actividad -->
   <dialog id="addActivity" class="modal">

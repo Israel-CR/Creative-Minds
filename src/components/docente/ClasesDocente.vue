@@ -34,7 +34,7 @@ const handleDelete=(idClass, nombre)=>{
 </script>
 
 <template>
-  <div className="text-lg">
+  <div className="text-lg ">
     <div class="flex justify-between py-3">
       <h1 className="text-4xl font-changa font-semibold">Mis Clases</h1>
       <RouterLink
@@ -73,9 +73,9 @@ const handleDelete=(idClass, nombre)=>{
       className="card bg-base-300 shadow-lg  border flex md:flex-row flex-col items-center  gap-2 my-2 p-2"
     >
       <figure class="avatar w-40">
-        <div class="mask mask-squircle">
+        <div class="rounded-lg bg-base-100">
           <img alt="Avatar Tailwind CSS"
-            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+           
           />
         </div>
       </figure>

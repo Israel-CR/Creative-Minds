@@ -13,37 +13,39 @@ onMounted(async () => {
 
 <template>
   <div
-    className="bg-indigo-100 mt-2 rounded-xl py-3 px-5 font-lato border border-black relative"
+    class="bg-base-200 mt-2 card card-body  font-lato"
   >
-    <h1 className="text-3xl font-bold text-center">{{infoClass?.nombre}}</h1>
-    <h2 className=" font-bold text-center text-pretty text-xl">
+    <h1 class="text-7xl text-center text-red-200  font-bold">{{infoClass?.nombre}}</h1>
+    <h2 class=" font-bold text-center text-pretty text-xl">
       {{infoClass?.area}}
     </h2>
 
-    <div className="flex justify-around border-b border-black">
+    <div class="flex justify-around">
       <div>
-        <i className=" fa fa-users "></i>
-        <p className="inline m-2">{{infoClass?.alumnos?.length}} alumnos</p>
+        <i class=" fa fa-users "></i>
+        <p class="inline m-2">{{infoClass?.alumnos?.length}} alumnos</p>
       </div>
       <div>
-        <i className="fa fa-check font-bold text-xl"></i>
-        <p className="inline m-2">{{infoClass?.finalizado}} finalizado</p>
+        <i class="fa fa-check font-bold text-xl"></i>
+        <p class="inline m-2">{{infoClass?.finalizado}} finalizado</p>
       </div>
       <div>
         <i className="fa fa-heart"></i>
         <p className="inline m-2">{{infoClass?.Valoracion}} valoracion</p>
       </div>
     </div>
+    <div class="divider"></div>
 
-    <div className="flex justify-end items-center p-2">
+    <div className="flex justify-end gap-3 card-actions">
       <div>
         <RouterLink
-          className="bg-blue-300 py-2 px-5 rounded-full border font-bold hover:bg-blue-500 shadow-blue-300 shadow-inner"
+          class="btn btn-error  rounded-full"
           to=""
         >
+        Eliminar Clase
         </RouterLink>
         <RouterLink
-          className="bg-blue-300 py-2 px-5 rounded-full border font-bold hover:bg-blue-500 shadow-blue-300 shadow-inner"
+          className=" btn btn-primary shadow-blue-300 rounded-full"
           :to="{name:'editarClase', params:{idClase:idClase}}"
         >
           Editar Clase
@@ -62,8 +64,7 @@ onMounted(async () => {
       <div class="card-body" :key="actividad">
         <div class="flex justify-between items-center">
           <h1 class="card-title font-salsa text-xl">pregunta</h1>
-          <button class="btn btn-info self-start">opciones <i class="fas fa-ellipsis-h rotate-90"></i></button>
-        </div>
+         </div>
         <p>{{ actividad.pregunta }}</p>
 
         
@@ -87,11 +88,9 @@ onMounted(async () => {
         {{ actividad.retroalimentacion }}
       </div>
     </div>
-    {{ infoClass.Actividades }}
-    <p>Esta clase aun no tiene actividades</p>
-    <button class="btn btn-success" onclick="addActivity.showModal()">
-      Agregar Actividad
-    </button>
+    
+    <p v-if="!infoClass.Actividades">Esta clase aun no tiene actividades</p>
+
   </div>
  
 </template>

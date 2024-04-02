@@ -64,7 +64,7 @@ const AddActivity = async () => {
 <template>
   <div class="modal-box bg-base-200">
     <h1 className=" text-2xl text-center font-bold">Agregar Actividad</h1>
-    <div v-if="toastalert" class="toast toast-center toast-middle">
+    <div v-if="toastalert" class="relative toast toast-center toast-middle">
             <div class="alert alert-success">
               <span>Has agregado una nueva actividad.</span>
             </div>

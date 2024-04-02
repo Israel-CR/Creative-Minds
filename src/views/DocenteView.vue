@@ -3,12 +3,17 @@
 import NavBarUser from "@/components/navegacion/NavBarUser.vue"
 import SideNavDocente from "@/components/navegacion/SideNavDocente.vue";
 import authService from "@/store/AuthService";
+import userService from "@/store/UserService";
+
 const authStore = authService();
+const userStore = userService();
+
 import { onMounted } from "vue";
 
 onMounted(
   async ()=>{
     await authStore.getUser();
+    await userStore.getProfile();
   })
 
 </script>
@@ -25,7 +30,7 @@ onMounted(
         <div class="px-10 py-5 flex-grow">
           
           
-          <router-view class=" transition-all transform duration-700 ease-in-out" /> <!-- Se utiliza router-view en lugar de Outlet en Vue -->
+          <router-view /> <!-- Se utiliza router-view en lugar de Outlet en Vue -->
         
         </div>
       </div>

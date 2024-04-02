@@ -137,6 +137,11 @@ const authService = defineStore("authService", {
           // Actualiza el estado del componente con la respuesta
         })
         .catch((error) => {
+          this.isAuthenticated = false;
+            this.token = null;
+            // Elimina el estado de autenticación y el token de localStorage
+            deleteUseAuth("isAuth");
+            deleteUseAuth("token");
           console.log("error al procesar la solicitud", error);
           // Si hay algun error, se redirecciona a login
         });

@@ -1,4 +1,6 @@
+
 import { defineStore } from "pinia";
+import { computed } from "vue";
 
 const userService = defineStore("userService", {
   state: () => {
@@ -29,6 +31,38 @@ const userService = defineStore("userService", {
         // Si hay algun error, se redirecciona a login
       })
     },
+   
+    async updateProfile(userProfile) {
+      await fetch("http://localhost:5000/api/usuarios/perfil",{
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        },
+        mode: "cors",
+        credentials: "include",
+        body: JSON.stringify(userProfile),
+      }
+      ).then(res=>{
+        if(res.ok){
+          return res.json()
+        }else{
+          throw new Error(res.status,"Error en la petición");
+        }
+      })
+      .then(data=>{
+        console.log(data)
+      })
+    },
+    formatFecha(fecha){
+        const date = new Date(fecha);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0"); // Zero-pad month
+        const day = String(date.getDate()).padStart(2, "0"); // Zero-pad day
+        
+        return `${year}-${month}-${day}`;
+    }
   },
 });
 

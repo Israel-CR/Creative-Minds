@@ -1,11 +1,11 @@
 <script setup>
 import authService from '@/store/AuthService';
-const authStore=authService()
+const authStore= authService()
 
 </script>
 
 <template>
-    <header class=" border-b shadow-md top-0 bg-transparent max-w-screen px-2 sticky z-50 pt-0">
+    <header class=" border-b shadow-md top-0 bg-gradient-to-r from-[#69d5f3] to-[#6EFFA0] max-w-screen px-2 sticky z-50 pt-0">
             <div class="p-2 flex justify-between items-center ">
                 <div class="flex gap-1 p-1 items-center  md:w-2/3  rounded-full bg-white w-full">
                     <input

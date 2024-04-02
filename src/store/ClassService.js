@@ -40,7 +40,7 @@ const classService = defineStore("classService", {
       })
         .then((res) => res.json())
         .then((data) => {
-          this.clase = data;
+          return this.clase = data;
         })
         .catch((error) => {
           console.log("error al procesar la solicitud", error);
