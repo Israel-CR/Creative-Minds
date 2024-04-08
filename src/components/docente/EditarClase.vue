@@ -55,11 +55,11 @@ onMounted(async () => {
 
   <!-- formulario para agregar actividad -->
   <div
-    className="bg-sky-200 mt-2 rounded-xl px-10 py-5 font-lato border border-black text-lg "
+    className="bg-base-200 mt-2 rounded-xl px-10 py-5 font-lato border border-black text-lg "
   >
-  <div class="flex justify-between">
+  <div class="flex justify-between items-center">
     <h1 className="  text-2xl font-bold">Actividades</h1>
-    <button class="btn glass btn-info" onclick="addActivity.showModal()">
+    <button class="btn btn-outline btn-primary" onclick="addActivity.showModal()">
       Agregar Actividad
     </button>
   </div>
@@ -71,11 +71,11 @@ onMounted(async () => {
       <div class="card-body" :key="actividad">
         <div class="flex justify-between items-center">
           <h1 class="card-title font-salsa text-xl">pregunta</h1>
-          <label class="btn  btn-circle swap swap-rotate btn-info self-start"> 
+          <label class="btn btn-sm  btn-circle swap swap-rotate btn-secondary self-start"> 
             <input type="checkbox">
             <i class="swap-off fas 
-            fa-ellipsis-h rotate-90 text-3xl"></i>
-            <i class="swap-on fas fa-ellipsis-h rotate-45 text-3xl"></i>
+            fa-ellipsis-h rotate-90 text-xl"></i>
+            <i class="swap-on fas fa-ellipsis-h rotate-45 text-xl"></i>
           </label>
           
         </div>
@@ -84,18 +84,16 @@ onMounted(async () => {
         
         <div v-if="actividad.respuestas.length>0">
            <h1 class="card-title font-salsa text-xl">Opciones de respuesta</h1>
-           <div v-for="respuesta in actividad.respuestas"  class="m-2 card w-auto">
-          <div class="alert alert-info">
-            <span>{{respuesta}}</span>
-          </div>
+           <div v-for="respuesta in actividad.respuestas"  class="m-2 rounded-lg bg-info py-2 text-center">
+            <span class="text-2xl font-bold">{{respuesta}}</span>
         </div>
         </div>
        
         
        
         <h1 class="card-title font-salsa text-xl">Respuesta Correcta</h1>
-        <div class="alert alert-success">
-            <span>{{ actividad.correcta }}</span>
+        <div class="rounded-lg bg-success py-2 text-center">
+            <span class="font-bold text-2xl">{{ actividad.correcta }}</span>
           </div>
         
         <h1 class="card-title font-salsa text-xl">Retroalimentacion</h1>

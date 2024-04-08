@@ -64,11 +64,7 @@ const AddActivity = async () => {
 <template>
   <div class="modal-box bg-base-200">
     <h1 className=" text-2xl text-center font-bold">Agregar Actividad</h1>
-    <div v-if="toastalert" class="relative toast toast-center toast-middle">
-            <div class="alert alert-success">
-              <span>Has agregado una nueva actividad.</span>
-            </div>
-          </div>
+    
     <!-- pasos dentro del formulario -->
     <ul class="steps w-full">
       <li class="step step-primary">Pregunta</li>
@@ -185,7 +181,12 @@ const AddActivity = async () => {
       </div>
     </div>
 
-    <div class="modal-action">
+    <div v-if="toastalert" class="flex justify-center pt-4">
+         <span  class="loading loading-spinner text-info loading-lg">
+    </span>
+    </div>
+
+    <div v-else class="modal-action">
       <button v-if="currentStep > 1" @click="afterStep" class="btn btn-info">
         regresar
       </button>
@@ -193,8 +194,8 @@ const AddActivity = async () => {
         <!-- if there is a button in form, it will close the modal -->
         <button class="btn btn-error">Cancelar</button>
       </form>
-
-      <button
+      
+<button
         type="submit"
         v-if="currentStep <= 2"
         @click="nextStep"
@@ -202,9 +203,13 @@ const AddActivity = async () => {
       >
         Continuar
       </button>
+
       <button v-else @click="AddActivity" class="btn btn-success">
         Agregar Actividad
       </button>
+      
+
+      
     </div>
   </div>
 </template>

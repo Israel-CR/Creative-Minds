@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-
+import router from "@/router";
 const groupService = defineStore("groupService", {
   state: () => {
     return {
@@ -28,6 +28,28 @@ const groupService = defineStore("groupService", {
       }).catch(err=>{
         console.log(err)
       }) 
+  },
+  async addGroup(infoGroup) {
+    await fetch("http://localhost:5000/api/grupo/", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.token}`,
+      },
+      body: JSON.stringify(infoGroup),
+    })
+    .then(res=> res.json())
+    .then(data=>{
+      setTimeout(() => {
+        router.replace({ name: 'grupo', params: { idGrupo: data?._id }})
+      }, 3000);
+      
+     
+    })
+    .catch(error=>{
+      console.log("error al procesar la clase", error)
+    })
   },
   async deleteGroup(idGroup){
     await fetch("http://localhost:5000/api/grupos/" + idGroup, {
@@ -59,8 +81,6 @@ const groupService = defineStore("groupService", {
       })
       .then(res => res.json())
       .then((data) => {
-        console.log(data)
-        
         if (!data.error) {
           this.grupos = data.grupos;
         } else {

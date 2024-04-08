@@ -52,15 +52,16 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="w-full">
-    <h1 class="text-4xl font-play font-semibold">Mi Perfil</h1>
-
+<h1 class="text-4xl font-play font-semibold">Mi Perfil</h1>
+    <div class="w-full flex-col md:flex-row flex gap-2">
+    
     <div
-      class="card bg-sky-200 shadow-md my-4 flex md:flex-row flex-col items-center font-lato"
+      class="card card-body bg-sky-200 shadow-md w-full md:w-1/2  font-lato"
     >
-      <figure class="avatar p-2">
+    <div class=" flex md:flex-row flex-col items-center">
+<figure class="avatar p-2 w-40 self-start">
         <div
-          class="w-40 rounded-full ring ring-info ring-offset-base-100 ring-offset-2"
+          class=" rounded-full ring ring-info ring-offset-base-100 ring-offset-2"
         >
           <img
             alt="perfil"
@@ -68,22 +69,29 @@ onMounted(async () => {
           />
         </div>
       </figure>
-      <div class="card-body flex-grow">
-        <h1 class="text-5xl capitalize font-bold">
-          {{ userStore.perfil?.nombre }}
+      <div>
+        <h1 class="text-5xl capitalize font-bold ">
+          {{ userStore?.perfil?.nombre }}
         </h1>
         <p class="text-2xl">
-          <i class="fa fa-chalkboard-teacher"></i> {{ userStore.perfil?.rol }}
+          <i class="fa fa-chalkboard-teacher"></i> {{ userStore?.perfil.rol }}
         </p>
-        <div class="flex flex-col md:flex-row justify-between mt-2">
-          <p class="text-xl">
-            <i class="fa fa-envelope"></i> {{ userStore.perfil?.correo }}
+      </div>
+      
+
+
+    </div>
+      
+      <div class="self-start">
+        <p class="text-xl">
+            <i class="fa fa-envelope"></i> {{ userStore?.perfil.correo }}
           </p>
+        <div class="flex flex-col md:flex-row justify-between mt-2">
+          
           <p class="text-xl"><i className="fa fa-users"></i>{{ noGrupos }} Grupos</p>
           <p class="text-xl">
-            <i class="fa fa-chalkboard"></i>{{ noClases }} Clases creadas
+            <i class="fa fa-chalkboard"></i>{{ noClases }} Clases Inscritas
           </p>
-          <p class="text-xl"><i className="fa fa-star"></i> 0 valoracion</p>
         </div>
       </div>
     </div>
@@ -116,22 +124,22 @@ onMounted(async () => {
           class="card-body grid grid-cols-2 text-lg flex-col md:flex-row gap-3"
         >
           <div class="w-1/2">
-            <p><b>Nombre:</b>{{ userStore.perfil?.nombre }}</p>
+            <p><b>Nombre:</b>{{ userStore?.perfil.nombre }}</p>
           </div>
           <div class="w-1/2">
-            <p><b>Usuario:</b> {{ userStore.perfil.usuario }}</p>
+            <p><b>Usuario:</b> {{ userStore?.perfil.usuario }}</p>
           </div>
           <div class="w-1/2">
-            <p><b>Correo Electronico:</b> {{ userStore.perfil.correo }}</p>
+            <p><b>Correo Electronico:</b> {{ userStore?.perfil.correo }}</p>
           </div>
           <div class="w-1/2">
-            <p><b>Rol del Usuario:</b>{{ userStore.perfil.rol }}</p>
+            <p><b>Rol del Usuario:</b>{{ userStore?.perfil.rol }}</p>
           </div>
           <div class="w-1/2">
-            <p><b>Fecha de Nacimento:</b>{{ infoPerfil.fechaNacimiento }}</p>
+            <p><b>Fecha de Nacimento:</b>{{ infoPerfil?.fechaNacimiento }}</p>
           </div>
           <div class="w-1/2">
-            <p><b>Genero:</b> {{ userStore.perfil.genero }}</p>
+            <p><b>Genero:</b> {{ userStore?.perfil.genero }}</p>
           </div>
         </div>
         <div v-else class="card-body">
@@ -187,23 +195,10 @@ onMounted(async () => {
       </div>
     </div>
   </div>
-
-
-  <dialog id="alertEditarPerfil" class="modal">
-  <div class="modal-box flex items-center flex-col">
-       <i class="fa fa-exclamation-triangle text-error  text-6xl p-2  "></i>
-   
-    <h2 class="font-bold text-lg p-4 text-center text-error">El usuario ya esta en uso elige otro</h2>
-    
-    <div class="modal-action">
-
-      <form method="dialog">
-        <!-- if there is a button in form, it will close the modal -->
-        <button class="btn btn-primary">Aceptar</button>
-      </form>
-      
+    <div>
+        <h1>AQUI SE MOSTRARA EL PERFIL DEL ALUMNO</h1>
     </div>
-  </div>
-</dialog>
-
 </template>
+
+<style scoped>
+</style>

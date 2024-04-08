@@ -13,9 +13,9 @@ onMounted(async () => {
 
 <template>
   <div
-    class="bg-base-200 mt-2 card card-body  font-lato"
+    class="bg-base-100 mt-2 card card-body  font-lato"
   >
-    <h1 class="text-7xl text-center text-red-200  font-bold">{{infoClass?.nombre}}</h1>
+    <h1 class="text-4xl text-center  font-bold">{{infoClass?.nombre}}</h1>
     <h2 class=" font-bold text-center text-pretty text-xl">
       {{infoClass?.area}}
     </h2>
@@ -37,24 +37,23 @@ onMounted(async () => {
     <div class="divider"></div>
 
     <div className="flex justify-end gap-3 card-actions">
-      <div>
         <RouterLink
-          class="btn btn-error  rounded-full"
+          class="btn btn-error"
           to=""
         >
         Eliminar Clase
         </RouterLink>
         <RouterLink
-          className=" btn btn-primary shadow-blue-300 rounded-full"
+          className=" btn btn-primary shadow-blue-300"
           :to="{name:'editarClase', params:{idClase:idClase}}"
         >
           Editar Clase
         </RouterLink>
-      </div>
+      
     </div>
   </div>
   <div
-    className="bg-sky-200 mt-2 rounded-xl px-10 py-5 font-lato border border-black text-lg "
+    className="bg-base-200 mt-2 rounded-xl px-10 py-5 font-lato text-lg "
   >
     <h1 className="  text-2xl font-bold">Actividades</h1>
     <div

@@ -15,6 +15,13 @@ import ClaseDocente from "@/components/docente/ClaseDocente.vue";
 import CrearClase from "@/components/docente/CrearClase.vue";
 import EditarClase from "@/components/docente/EditarClase.vue";
 
+import AlumnoView from "@/views/AlumnoView.vue";
+import InicioAlumno from "@/components/alumno/InicioAlumno.vue";
+import ActividadesAlumno from "@/components/alumno/ActividadesAlumno.vue";
+import GruposAlumno from "@/components/alumno/GruposAlumno.vue";
+import PerfilAlumno from "@/components/alumno/PerfilAlumno.vue"
+import ExplorarCursos from "@/components/alumno/ExplorarCursos.vue";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -67,12 +74,12 @@ const router = createRouter({
       path: "/docente",
       name: "Docente",
       component: DocenteView,
-      redirect: {name:"inicio"},
+      redirect: {name:"inicioDocente"},
       children: [
         {
           path:'',
         
-          name: "inicio",
+          name: "inicioDocente",
           component:InicioDocente
         },
         {
@@ -137,6 +144,44 @@ const router = createRouter({
         requireAuth: true,
       },
     },
+    {
+      path:"/alumno",
+      name:"Alumno",
+      component:AlumnoView,
+      redirect:{name:"inicioAlumno"},
+      children:[
+        {
+          path:"",
+          name:"inicioAlumno",
+          component:InicioAlumno
+        },
+        {
+          path:"actividades",
+          name:"actividades",
+          component:ActividadesAlumno
+        },
+        {
+          path:"grupos",
+          name:"gruposA",
+          component:GruposAlumno
+        },
+        {
+          path:"perfil",
+          name:"perfilA",
+          component:PerfilAlumno
+        },
+        {
+          path:'explorar',
+          name:'explorarCursos',
+          component:ExplorarCursos
+        }
+
+
+      ],
+      meta:{
+        requireAuth:true
+      }
+    }
   ],
 });
 

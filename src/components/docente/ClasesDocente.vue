@@ -39,7 +39,7 @@ const handleDelete=(idClass, nombre)=>{
       <h1 className="text-4xl font-changa font-semibold">Mis Clases</h1>
       <RouterLink
         v-if="classStore.clases.length > 0"
-        class="btn bg-blue-400"
+        class="btn btn-outline btn-primary"
         to="/docente/clases/crear"
       >
         Crear Clase
@@ -58,7 +58,7 @@ const handleDelete=(idClass, nombre)=>{
       <h1 className="text-2xl font-semibold ">Crea tu primera clase</h1>
       <p class="my-3">aqui se mostraran tus clases</p>
       <RouterLink
-        class="bg-indigo-400 py-2 px-5 mt-5 rounded-full border font-bold hover:bg-green-600 shadow-blue-300 shadow-inner"
+        class="btn btn-outline btn-primary"
         to="/docente/clases/crear"
       >
         Crear Clase
@@ -72,7 +72,7 @@ const handleDelete=(idClass, nombre)=>{
       key="clase._id"
       className="card bg-base-300 shadow-lg  border flex md:flex-row flex-col items-center  gap-2 my-2 p-2"
     >
-      <figure class="avatar w-40">
+      <figure class=" bg-base-100 avatar w-64">
         <div class="rounded-lg bg-base-100">
           <img alt="Avatar Tailwind CSS"
            
@@ -94,20 +94,20 @@ const handleDelete=(idClass, nombre)=>{
         <div class="divider m-0"></div>
         <div className="flex justify-between">
           <p>{{ clase?.profesor.nombre }}</p>
-          <aside className="badge badge-info">
+          <aside className="badge badge-warning">
             <p>{{ clase.Estado }}</p>
           </aside>
         </div>
         <div class="card-actions flex justify-end">
           <RouterLink
             :to="{ name: 'clase', params: { idClase: clase._id } }"
-            class="btn bg-blue-300 btn-outline"
+            class="btn btn-accent"
           >
             ver clase
           </RouterLink>
 
           <div class="dropdown dropdown-top dropdown-end ">
-            <div tabindex="0" role="button" class="btn btn-success btn-outline">Opciones </div>
+            <div tabindex="0" role="button" class="btn  btn-info">Opciones </div>
             <ul
               
               class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 flex gap-2"

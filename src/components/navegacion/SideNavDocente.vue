@@ -71,8 +71,8 @@ const logout=()=>{
                         </div>
                        
     
-                         <button class="btn btn-outline btn-error m-2 flex justify-between"> <p className=" hidden md:inline-block"
-                            @click="logout"
+                         <button class="btn btn-outline btn-error m-2 flex justify-between" @click="logout"> <p className=" hidden md:inline-block"
+                            
                             >Cerrar sesion</p><i class="fas fa-sign-out-alt"></i></button>
                     
                    </div>

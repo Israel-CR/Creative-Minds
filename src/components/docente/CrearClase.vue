@@ -37,11 +37,12 @@ const newClass = async () => {
     await classStore
       .addClase(classInfo.value)
       .then(() => {
-        toastalert.value= true
+        toastalert.value = true;
         setTimeout(() => {
-          toastalert.value= false
+          toastalert.value = false;
         }, 3000);
-      }).then((response) => console.log(response))
+      })
+      .then((response) => console.log(response))
       .catch((error) => {
         console.log(error);
         alert("Ha ocurrido un error ");
@@ -56,11 +57,6 @@ const newClass = async () => {
     <div className="card bg-base-200 mt-2 font-lato border shadow-lg ">
       <div class="py-2 card-body">
         <div>
-          <div v-if="toastalert" class="toast toast-top toast-end">
-            <div class="alert alert-success">
-              <span>Has creado una nueva clase.</span>
-            </div>
-          </div>
           <label class="label font-bold text-lg">Nombre de la clase</label>
 
           <div class="input rounded-full flex items-center gap-2">
@@ -115,8 +111,14 @@ const newClass = async () => {
               >el area es requirido</span
             >
           </div>
+          <div v-if="toastalert" class="flex justify-center pt-4">
+            <span
+              class="loading loading-spinner text-info loading-lg"
+            >
+            </span>
+          </div>
 
-          <div class="flex justify-end mt-2">
+          <div v-else class="flex justify-end mt-2">
             <button
               @click="newClass"
               class="btn btn-info rounded-full hover:translate-y-2"
