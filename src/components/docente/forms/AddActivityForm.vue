@@ -77,20 +77,7 @@ const AddActivity = async () => {
     </ul>
     <!-- primera parte del formulario -->
     <form v-if="currentStep === 1">
-      <div className="py-2 ">
-        <label for="" className="label font-bold text-lg">Pregunta</label>
-        <div i class="input input-success rounded-full flex items-center gap-2">
-          <i class="fa fa-question text-2xl rounded-full"></i>
-          <input
-            class="grow form-control"
-            v-model="infoActivity.pregunta"
-            id="pregunta"
-            type="text"
-            placeholder="ejemplo:¿Cuanto es 4 x 4?"
-            required
-          />
-        </div>
-      </div>
+     
       <div className="py-2">
         <label for="" className="label font-bold text-lg">tipo de pregunta</label>
         <div class="flex flex-wrap gap-3">
@@ -113,6 +100,20 @@ const AddActivity = async () => {
     </form>
     <!-- segunda parte del formulario -->
     <div v-if="currentStep === 2">
+      <div className="py-2 ">
+        <label for="" className="label font-bold text-lg">Pregunta</label>
+        <div class="input input-success rounded-full flex items-center gap-2">
+          <i class="fa fa-question text-2xl rounded-full"></i>
+          <input
+            class="grow form-control"
+            v-model="infoActivity.pregunta"
+            id="pregunta"
+            type="text"
+            placeholder="ejemplo:¿Cuanto es 4 x 4?"
+            required
+          />
+        </div>
+      </div>
       <div v-if="infoActivity.tipo === 'Opcion Multiple'" className="py-2 ">
         <label for="" className="label font-bold text-lg">Opciones de respuesta</label>
         <div class="flex gap-3 flex-wrap">
@@ -150,7 +151,7 @@ const AddActivity = async () => {
           class="select select-bordered w-full max-w-xs"
           v-model="infoActivity.correcta"
         >
-          <option disabled selected>Who shot first?</option>
+          <option disabled selected>Elige la respuesta correcta</option>
           <option
             v-if="infoActivity.tipo === 'Opcion Multiple'"
             v-for="opcion in infoActivity.respuestas"
@@ -160,7 +161,7 @@ const AddActivity = async () => {
           </option>
           <option
             v-else
-            v-for="opcion in ['Veradero', 'Falso']"
+            v-for="opcion in ['Verdadero', 'Falso']"
             :value="opcion"
           >
             {{ opcion }}

@@ -13,7 +13,7 @@ const infoPerfil = ref({});
 const noClases= ref(classStore.clases.length)
 const noGrupos= ref(groupStore.grupos.length)
 
-const fechaNacimiento = userStore.formatFecha(userStore.perfil.fechaNacimiento)
+const fechaNacimiento =ref(userStore.formatFecha(userStore.perfil.fechaNacimiento))
 
 const editarPerfil = ref(false);
 function showForm() {
@@ -28,11 +28,11 @@ function hideForm() {
 
 const handleEditProfile=async()=>{
   await userStore.updateProfile(infoPerfil.value)
-  .then(async()=>{
-    await userStore.getProfile();
+  .then(()=>{
+    userStore.getProfile();
     editarPerfil.value = false;
   infoPerfil.value = JSON.parse(JSON.stringify(userStore.perfil));
-  infoPerfil.value.fechaNacimiento = fechaNacimiento;
+  infoPerfil.value.fechaNacimiento = userStore.formatFecha(userStore.perfil.fechaNacimiento);
   })
   .catch(() => {
     alertEditarPerfil.showModal()
@@ -44,10 +44,10 @@ const handleEditProfile=async()=>{
 
 
 
-onMounted(async () => {
-  await userStore.getProfile();
-  infoPerfil.value = JSON.parse(JSON.stringify(userStore.perfil));
-  infoPerfil.value.fechaNacimiento = fechaNacimiento;
+onMounted( () => {
+   userStore.getProfile();
+     infoPerfil.value = JSON.parse(JSON.stringify(userStore.perfil));
+      infoPerfil.value.fechaNacimiento = userStore.formatFecha(userStore.perfil.fechaNacimiento);
 });
 </script>
 

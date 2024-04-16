@@ -7,6 +7,8 @@ import DocenteView from "@/views/DocenteView.vue";
 import PerfilDocente from "@/components/docente/PerfilDocente.vue";
 import ClasesDocente from  "@/components/docente/ClasesDocente.vue";
 import GruposDocente from "@/components/docente/GruposDocente.vue";
+import AlumnosDocente from "@/components/docente/AlumnosDocente.vue";
+import  InformesDocente from "@/components/docente/InformesDocente.vue";
 
 import authService from "@/store/AuthService";
 import InicioDocente from "@/components/docente/InicioDocente.vue";
@@ -18,9 +20,14 @@ import EditarClase from "@/components/docente/EditarClase.vue";
 import AlumnoView from "@/views/AlumnoView.vue";
 import InicioAlumno from "@/components/alumno/InicioAlumno.vue";
 import ActividadesAlumno from "@/components/alumno/ActividadesAlumno.vue";
+import RealizarActividades from "@/components/alumno/RealizarActividades.vue";
+
 import GruposAlumno from "@/components/alumno/GruposAlumno.vue";
 import PerfilAlumno from "@/components/alumno/PerfilAlumno.vue"
 import ExplorarCursos from "@/components/alumno/ExplorarCursos.vue";
+import GrupoAlumno from "@/components/alumno/GrupoAlumno.vue";
+import DetallesInforme from "@/components/docente/DetallesInforme.vue"
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -124,14 +131,18 @@ const router = createRouter({
         {
           path: "alumnos",
           name: "alumnos",
-          component:import("../views/AboutView.vue")
+          component:AlumnosDocente
         ,
         },
         {
           path: "informes",
           name: "informes",
-          component:import("../views/AboutView.vue")
-        ,
+          component:InformesDocente,
+        },
+        {
+          path: "informes/:idInforme",
+          name: "informeDetalle",
+          component:DetallesInforme,
         },
         {
           path: "recursos",
@@ -161,9 +172,19 @@ const router = createRouter({
           component:ActividadesAlumno
         },
         {
+          path:"actividades/:idAct",
+          name:"realizarActividad",
+          component:RealizarActividades
+        },
+        {
           path:"grupos",
           name:"gruposA",
           component:GruposAlumno
+        },
+        {
+          path: "grupos/:idGrupo",
+          name: "grupoA",
+          component: GrupoAlumno
         },
         {
           path:"perfil",

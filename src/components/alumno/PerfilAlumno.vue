@@ -13,7 +13,7 @@ const infoPerfil = ref({});
 const noClases= ref(classStore.clases.length)
 const noGrupos= ref(groupStore.grupos.length)
 
-const fechaNacimiento = userStore.formatFecha(userStore.perfil.fechaNacimiento)
+const fechaNacimiento =ref(userStore.formatFecha(userStore.perfil.fechaNacimiento))
 
 const editarPerfil = ref(false);
 function showForm() {
@@ -32,7 +32,7 @@ const handleEditProfile=async()=>{
     await userStore.getProfile();
     editarPerfil.value = false;
   infoPerfil.value = JSON.parse(JSON.stringify(userStore.perfil));
-  infoPerfil.value.fechaNacimiento = fechaNacimiento;
+  infoPerfil.value.fechaNacimiento = userStore.formatFecha(userStore.perfil.fechaNacimiento);
   })
   .catch(() => {
     alertEditarPerfil.showModal()
@@ -44,11 +44,11 @@ const handleEditProfile=async()=>{
 
 
 
-onMounted(async () => {
-  await userStore.getProfile();
-  infoPerfil.value = JSON.parse(JSON.stringify(userStore.perfil));
-  infoPerfil.value.fechaNacimiento = fechaNacimiento;
-});
+onMounted(async() => {
+    userStore.getProfile()
+      infoPerfil.value = JSON.parse(JSON.stringify(userStore.perfil));
+      infoPerfil.value.fechaNacimiento = userStore.formatFecha(userStore.perfil.fechaNacimiento);
+}); 
 </script>
 
 <template>
@@ -56,7 +56,7 @@ onMounted(async () => {
     <div class="w-full flex-col md:flex-row flex gap-2">
     
     <div
-      class="card card-body bg-sky-200 shadow-md w-full md:w-1/2  font-lato"
+      class="card card-body bg-base-200 shadow-md w-full md:w-1/2  font-lato"
     >
     <div class=" flex md:flex-row flex-col items-center">
 <figure class="avatar p-2 w-40 self-start">
@@ -82,21 +82,22 @@ onMounted(async () => {
 
     </div>
       
-      <div class="self-start">
+      <div class="self-start p-3">
         <p class="text-xl">
             <i class="fa fa-envelope"></i> {{ userStore?.perfil.correo }}
           </p>
-        <div class="flex flex-col md:flex-row justify-between mt-2">
+        
           
           <p class="text-xl"><i className="fa fa-users"></i>{{ noGrupos }} Grupos</p>
-          <p class="text-xl">
+          
+        
+        <p class="text-xl">
             <i class="fa fa-chalkboard"></i>{{ noClases }} Clases Inscritas
           </p>
-        </div>
       </div>
     </div>
 
-    <div class="card shadow-md bg-sky-200">
+    <div class="card w-full md:w-4/6 shadow-md bg-base-200">
       <div>
         <div class="flex justify-between pb-3 p-3">
           <h1 class="card-title text-3xl font-bold">
@@ -142,7 +143,7 @@ onMounted(async () => {
             <p><b>Genero:</b> {{ userStore?.perfil.genero }}</p>
           </div>
         </div>
-        <div v-else class="card-body">
+        <div v-else class="card-body   ">
           <form class="flex flex-wrap md:flex-row felx-col">
             <div class="md:w-1/2">
               <label class="label font-bold" for="">Nombre</label>
@@ -169,7 +170,7 @@ onMounted(async () => {
               />
             </div>
             <div class="md:w-1/2">
-              <label for="" class="label font-">Rol del Usuario</label>
+              <label for="" class="label font-bold">Rol del Usuario</label>
               <select
                 v-model="infoPerfil.rol"
                 class="select font-bold text-black grow max-w-xs"
@@ -180,7 +181,7 @@ onMounted(async () => {
               </select>
             </div>
             <div class="md:w-1/2">
-              <label for="" class="label font-">Fecha de Nacimento</label>
+              <label for="" class="label font-bold">Fecha de Nacimento</label>
               <input
                 v-model="infoPerfil.fechaNacimiento"
                 type="date"
@@ -196,7 +197,7 @@ onMounted(async () => {
     </div>
   </div>
     <div>
-        <h1>AQUI SE MOSTRARA EL PERFIL DEL ALUMNO</h1>
+        
     </div>
 </template>
 

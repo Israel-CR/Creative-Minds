@@ -12,15 +12,17 @@ onMounted(async () => {
 </script>
 
 <template>
+  
   <div
-    class="bg-base-100 mt-2 card card-body  font-lato"
+  
+    class="bg-base-100 mt-2  py-3 px-5 card  font-lato"
   >
-    <h1 class="text-4xl text-center  font-bold">{{infoClass?.nombre}}</h1>
+    <h1 class="text-3xl text-center  font-bold">{{infoClass?.nombre}}</h1>
     <h2 class=" font-bold text-center text-pretty text-xl">
       {{infoClass?.area}}
     </h2>
 
-    <div class="flex justify-around">
+    <!-- <div class="flex justify-around">
       <div>
         <i class=" fa fa-users "></i>
         <p class="inline m-2">{{infoClass?.alumnos?.length}} alumnos</p>
@@ -33,7 +35,7 @@ onMounted(async () => {
         <i className="fa fa-heart"></i>
         <p className="inline m-2">{{infoClass?.Valoracion}} valoracion</p>
       </div>
-    </div>
+    </div> -->
     <div class="divider"></div>
 
     <div className="flex justify-end gap-3 card-actions">
@@ -69,18 +71,19 @@ onMounted(async () => {
         
         <div v-if="actividad.respuestas.length>0">
            <h1 class="card-title font-salsa text-xl">Opciones de respuesta</h1>
-           <div v-for="respuesta in actividad.respuestas"  class="m-2 card w-auto">
-          <div class="alert alert-info">
-            <span>{{respuesta}}</span>
-          </div>
+
+
+           <div v-for="respuesta in actividad.respuestas"  class="m-2 rounded-lg bg-info py-2 text-center">
+            <span class="text-2xl font-bold">{{respuesta}}</span>
         </div>
+           
         </div>
        
         
        
         <h1 class="card-title font-salsa text-xl">Respuesta Correcta</h1>
-        <div class="alert alert-success">
-            <span>{{ actividad.correcta }}</span>
+        <div class="m-2 py-2 rounded-lg  bg-success text-center">
+            <span class="text-2xl font-bold">{{ actividad.correcta }}</span>
           </div>
         
         <h1 class="card-title font-salsa text-xl">Retroalimentacion</h1>

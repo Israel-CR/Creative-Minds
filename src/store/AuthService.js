@@ -1,5 +1,7 @@
 import { defineStore } from "pinia";
 
+import userService from "./UserService";
+
 const authService = defineStore("authService", {
   state: () => {
     return {
@@ -92,11 +94,13 @@ const authService = defineStore("authService", {
       }
     },
 
-    logout() {
+    async logout() {
+      await fetch("http://localhost:5000/api/logout", {
+        method: "POST",})
       // Marca al usuario como no autenticado y elimina el token
       this.isAuthenticated = false;
       this.token = null;
-
+      this.user = {};
       // Elimina el estado de autenticación y el token de localStorage
       deleteUseAuth("isAuth");
       deleteUseAuth("token");
@@ -146,6 +150,13 @@ const authService = defineStore("authService", {
           // Si hay algun error, se redirecciona a login
         });
     },
+    reset() {
+      // Restablece todos los datos a su estado inicial
+      this.token= ""
+      this.user={}
+      this.errors =[]
+      // Restablece otros datos del estado si los tienes...
+    },
   },
 });
 
@@ -160,5 +171,6 @@ function getUseAuth(key) {
 function deleteUseAuth(key) {
   localStorage.removeItem(key);
 }
+
 
 export default authService;

@@ -1,6 +1,8 @@
 <script setup>
+
+
 import NavBarInicio from '@/components/navegacion/NavBarInicio.vue';
-import {computed,  ref } from 'vue';
+import {computed,  onMounted,  ref } from 'vue';
 import router from "@/router";
 import authService from "@/store/AuthService";
 
@@ -14,7 +16,6 @@ let usuario= ref('')
 let rol=ref('')
 let correo=ref('')
 let password=ref('')
-
 
 
 

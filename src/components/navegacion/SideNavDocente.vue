@@ -1,16 +1,29 @@
 <script setup>
-import { RouterLink, useRouter } from 'vue-router';
+import { RouterLink, useRouter,  } from 'vue-router';
 import authService from '@/store/AuthService';
 import router from '@/router';
+import userService from '@/store/UserService';
+import { resetearStores } from '@/store/pinia';
+import classService from '@/store/ClassService';
+import groupService from '@/store/GroupService';
 
 
 
+const userStore= userService()
 const authStore= authService()
+const classStore= classService()
+const groupStore= groupService()
 const navRutas=[
+        {
+        nombre: "Inicio",
+        path:'inicioDocente',
+        icon:"fa fa-home"
+        },
+
     {
         nombre: "Mis clases",
         path:'clases',
-        icon:"fa fa-home"
+        icon:"fa fa-book"
     },
     {
         nombre:'Mis Grupos',
@@ -30,18 +43,18 @@ const navRutas=[
         icon:'fa fa-chart-bar'
     }
     ,
-    {
-        nombre:'Recursos Educativos',
-        path:'recursos',
-        icon:'fa fa-book'
-    }
+    // {
+    //     nombre:'Recursos Educativos',
+    //     path:'recursos',
+    //     icon:'fa fa-book'
+    // }
 ]
 
 
 const logout=()=>{
     authStore.logout();
+    window.location.href = '/';
     
-      router.push('/')
 }
 
 </script>

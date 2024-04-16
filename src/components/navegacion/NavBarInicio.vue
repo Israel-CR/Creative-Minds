@@ -7,14 +7,14 @@ let navRutas = [
     name: "Inicio",
     ruta: "/",
   },
-  {
-    name: "Nosotros",
-    ruta: "/nosotros",
-  },
-  {
-    name: "Contacto",
-    ruta: "/contacto",
-  },
+  // {
+  //   name: "Nosotros",
+  //   ruta: "/nosotros",
+  // },
+  // {
+  //   name: "Contacto",
+  //   ruta: "/contacto",
+  // },
 ];
 let authRutas = [
   {

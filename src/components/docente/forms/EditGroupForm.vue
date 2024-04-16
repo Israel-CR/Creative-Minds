@@ -1,24 +1,28 @@
 <script setup>
+import router from "@/router";
 import groupService from "@/store/GroupService";
-import { ref } from "vue";
+import { ref, defineProps } from "vue";
 
 const groupStore = groupService();
 
-const groupInfo = ref({
-  nombre: "",
-  codigo: "",
-});
 
-const toastalert= ref(false)
-async function createGroup() {
-  await groupStore.addGroup(groupInfo.value)
+const toastalert = ref(false);
+
+
+async function editGroup() {
+  await groupStore
+    .updateGroup(groupStore.currentGroup.idGroup)
     .then(() => {
       toastalert.value = true;
       setTimeout(() => {
         toastalert.value = false;
+        
       }, 3000);
     })
-    .then((response) => console.log(response))
+    .then(async () => {
+      await groupStore.getGroups();
+      
+    })
     .catch((error) => {
       console.log(error);
       alert("Ha ocurrido un error ");
@@ -28,12 +32,11 @@ async function createGroup() {
 
 <template>
   <div class="modal-box px-10 bg-base-200">
-    
-    <p class="text-2xl text-center font-bold">crear nuevo grupo</p>
+    <p class="text-2xl text-center font-bold">Editar Grupo</p>
     <form class="">
       <label class="label font-lato font-bold text-lg" htmlFor="">Nombre</label>
       <input
-        v-model="groupInfo.nombre"
+        v-model="groupStore.currentGroup.nombre"
         class="input input-success w-full"
         type="text"
         placeholder="nombre del grupo"
@@ -42,25 +45,26 @@ async function createGroup() {
         >Codigo del grupo</label
       >
       <input
-        v-model="groupInfo.codigo"
+        v-model="groupStore.currentGroup.codigo"
         class="w-full input input-success"
         type="text"
         placeholder="codigo"
       />
-     
     </form>
     <div v-if="toastalert" class="flex justify-center pt-4">
-         <span v-if="toastalert" class="loading loading-spinner text-info loading-lg">
-    </span>
+      <span
+        v-if="toastalert"
+        class="loading loading-spinner text-info loading-lg"
+      >
+      </span>
     </div>
-   
+
     <div v-else class="modal-action flex gap-2">
       <form class="" method="dialog">
         <!-- if there is a button in form, it will close the modal -->
-        <button class="btn btn-accent">Cancelar</button>
-        
+        <button @click="cancelar" class="btn btn-accent">Cancelar</button>
       </form>
-      <button @click="createGroup" class="btn btn-primary">Crear</button>
+      <button @click="editGroup" class="btn btn-primary">Editar</button>
     </div>
   </div>
 </template>

@@ -15,15 +15,19 @@ onMounted(async () => {
 </script>
 
 <template>
+  <div>
+    <h1 class="text-4xl font-changa font-semibold">Editar clase</h1>
+  </div>
+  
   <div
-    className=" bg-cyan-400 mt-2 rounded-xl py-3 px-5 font-lato text-lg border border-black relative"
+    className="card bg-base-200  mt-2  py-3 px-5 font-lato text-lg shadow-md relative"
   >
     <h1 className="text-3xl font-bold text-center">{{ infoClass?.nombre }}</h1>
     <h2 className=" font-bold text-center text-pretty text-xl">
       {{ infoClass?.area }}
     </h2>
 
-    <div className="flex justify-around border-b border-black">
+    <div className="flex  justify-around">
       <div>
         <i className=" fa fa-users "></i>
         <p className="inline m-2">{{ infoClass?.alumnos?.length }} alumnos</p>
@@ -37,25 +41,25 @@ onMounted(async () => {
         <p className="inline m-2">{{ infoClass?.Valoracion }} valoracion</p>
       </div>
     </div>
+    <div class="divider divider-neutral"></div>
 
     <div className="flex justify-end items-center p-2">
       <div class="flex gap-2">
         <RouterLink className="btn  btn-info" to="">
           editar detalles de la clase
         </RouterLink>
-        <RouterLink
+        <!-- <RouterLink
           className="btn btn-secondary"
           :to="{ name: 'editarClase', params: { idClase: idClase } }"
         >
           Editar Clase
-        </RouterLink>
+        </RouterLink> -->
       </div>
     </div>
   </div>
 
   <!-- formulario para agregar actividad -->
-  <div
-    className="bg-base-200 mt-2 rounded-xl px-10 py-5 font-lato border border-black text-lg "
+  <div className="bg-base-200 mt-2 rounded-xl px-10 py-5 font-lato shadow-md text-lg "
   >
   <div class="flex justify-between items-center">
     <h1 className="  text-2xl font-bold">Actividades</h1>
@@ -96,7 +100,7 @@ onMounted(async () => {
             <span class="font-bold text-2xl">{{ actividad.correcta }}</span>
           </div>
         
-        <h1 class="card-title font-salsa text-xl">Retroalimentacion</h1>
+        <h1 class="card-title font-salsa text-xl">Retroalimentación</h1>
         {{ actividad.retroalimentacion }}
       </div>
     </div>

@@ -3,6 +3,13 @@ import TheWelcome from "../components/TheWelcome.vue";
 import ListCard from "../components/ListCard.vue";
 import NavBarInicio from "@/components/navegacion/NavBarInicio.vue";
 
+import authService from "@/store/AuthService";
+const authStore = authService()
+const logout=()=>{
+    authStore.logout();
+    
+      router.push('/')
+}
 
 
 </script>
@@ -24,7 +31,7 @@ import NavBarInicio from "@/components/navegacion/NavBarInicio.vue";
             class="text-8xl py-4 font-changa text-center font-extrabold inline-block overflow-hidden"
           >
             Creative Minds
-            <span class="pl-1 animate-pulse">|</span>
+            <span class="pl-1 animate-pulse ">|</span>
           </h1>
 
           <p class="font-salsa text-justify typing-effect">

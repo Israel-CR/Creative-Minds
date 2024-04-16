@@ -1,18 +1,22 @@
 <script setup>
 import CreateGroupForm from "./forms/CreateGroupForm.vue";
+import EditGroupForm from "./forms/EditGroupForm.vue";
 import groupService from "@/store/GroupService";
 import userService from "@/store/UserService";
 import { onMounted, ref } from "vue";
 import { RouterLink } from "vue-router";
+
+
 const groupStore = groupService();
 const userStore = userService();
 
-onMounted(async () => {
-  await groupStore.getGroups();
+onMounted( () => {
+   groupStore.getGroups();
 });
 
-const idCurrentGroup = ref(null);
-const currentGroup = ref("");
+const idCurrentGroup = ref('');
+const currentGroup = ref('');
+
 const toastalert = ref(false);
 const deleteGroup = async () => {
   toastalert.value = true;
@@ -30,6 +34,18 @@ function handleDelete(idGroup, nombre) {
   idCurrentGroup.value = idGroup;
   eliminar_grupo.showModal();
 }
+
+function handleEdit(idGroup, nombre , codigo) {
+
+  groupStore.currentGroup={}
+  groupStore.currentGroup={
+    idGroup, nombre , codigo
+  }
+  
+  editar_grupo.showModal();
+}
+
+
 </script>
 
 <template>
@@ -44,7 +60,7 @@ function handleDelete(idGroup, nombre) {
       <div className=" flex flex-wrap">
         <div class="w-full">
           <div class="flex justify-between items-center py-3">
-            <h1 className="text-4xl font-play ">Mis grupos</h1>
+            <h1 class="text-4xl font-changa font-semibold">Mis grupos</h1>
 
             <button
               v-if="groupStore.grupos.length !== 0"
@@ -58,9 +74,9 @@ function handleDelete(idGroup, nombre) {
 
         <div
           v-if="groupStore.grupos.length === 0"
-          className=" flex md:flex-row flex-col gap-2 border border-black rounded-xl "
+          className=" flex md:flex-row flex-col gap-2 border border-black rounded-2xl "
         >
-          <div class="md:w-1/3 md:h-auto h-40 w-full bg-slate-600 animate-pulse">
+          <div class="md:w-1/3 md:h-auto h-40 w-full skeleton bg-slate-400">
             
           </div>
           <div className=" text-center  p-5">
@@ -81,12 +97,12 @@ function handleDelete(idGroup, nombre) {
             </button>
           </div>
         </div>
-        <div v-else v-for="grupo in groupStore.grupos" class="p-1 md:w-1/3 w-full">
+        <div v-else v-for="grupo in groupStore.grupos" :key="grupo.nombre" class="p-1 md:w-1/3 w-full">
           <div
             className="card card-compact bg-base-100 shadow-xl hover:-translate-y-1 "
           >
-            <figure class="bg-blue-100 p-4">
-              <a className="fa fa-users text-6xl text-sky-900"></a>
+            <figure class="bg-blue-100 p-8">
+              <a className="fa fa-users text-8xl text-sky-900"></a>
             </figure>
 
             <div className="card-body relative">
@@ -94,7 +110,7 @@ function handleDelete(idGroup, nombre) {
                 <div
                   tabindex="0"
                   role="button"
-                  className="btn btn-circle btn-sm btn-secondary absolute top-0 end-1 -translate-y-7"
+                  className="btn btn-circle btn-sm btn-accent absolute top-0 end-1 -translate-y-7"
                 >
                   <i class="fas fa-ellipsis-h rotate-90 text-xl"></i>
                 </div>
@@ -102,7 +118,9 @@ function handleDelete(idGroup, nombre) {
                   class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 flex gap-2"
                 >
                 <li>
-                  <button class="btn btn-sm btn-accent">
+                  <button  class="btn btn-sm btn-accent"
+                  @click="handleEdit(grupo._id, grupo.nombre, grupo.codigo)"
+                  >
                     Editar
                   </button>
                 </li>
@@ -171,6 +189,10 @@ function handleDelete(idGroup, nombre) {
   <dialog id="crear_grupo" class="modal modal-bottom sm:modal-middle">
     
     <CreateGroupForm/>
+  </dialog>
+  <!-- Formulario para editar informacion del grupo -->
+  <dialog id="editar_grupo" class="modal modal-bottom sm:modal-middle">
+   <EditGroupForm  />
   </dialog>
 </template>
 

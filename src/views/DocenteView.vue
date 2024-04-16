@@ -3,17 +3,23 @@
 import NavBarUser from "@/components/navegacion/NavBarUser.vue"
 import SideNavDocente from "@/components/navegacion/SideNavDocente.vue";
 import authService from "@/store/AuthService";
+import classService from "@/store/ClassService";
+import groupService from "@/store/GroupService";
 import userService from "@/store/UserService";
 
 const authStore = authService();
 const userStore = userService();
+const groupStore = groupService();
+const classStore = classService()
 
 import { onMounted } from "vue";
 
-onMounted(
-  async ()=>{
-    await authStore.getUser();
+onMounted(async()=>{
+  
+     await authStore.getUser();
     await userStore.getProfile();
+    await groupStore.getGroups()
+    await classStore.getClasses()
   })
 
 </script>

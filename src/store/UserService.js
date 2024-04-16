@@ -1,13 +1,14 @@
 
 import { defineStore } from "pinia";
-import { computed } from "vue";
+import authService from "./AuthService";
+
 
 const userService = defineStore("userService", {
   state: () => {
     return {
     perfil: {},
-    token: getUseAuth("token") || "",
-    isAuthenticated: getUseAuth("isAuth") || false,
+    token: authService().token,
+    isAuthenticated: authService().isAuthenticated,
   }
   },
   actions: {
@@ -24,13 +25,15 @@ const userService = defineStore("userService", {
       })
       .then(res => res.json())
       .then((data) => {
+      
         this.perfil = data;
-        
       }).catch((error) => {
         console.log("error al procesar la solicitud", error);
         // Si hay algun error, se redirecciona a login
       })
     },
+
+
    
     async updateProfile(userProfile) {
       await fetch("http://localhost:5000/api/usuarios/perfil",{
@@ -59,7 +62,7 @@ const userService = defineStore("userService", {
         const date = new Date(fecha);
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, "0"); // Zero-pad month
-        const day = String(date.getDate()).padStart(2, "0"); // Zero-pad day
+        const day = String(date.getDate()+ 1).padStart(2, "0"); // Zero-pad day
         
         return `${year}-${month}-${day}`;
     }

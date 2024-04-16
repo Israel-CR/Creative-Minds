@@ -1,9 +1,11 @@
 <script setup>
 import classService from "@/store/ClassService";
+import groupService from "@/store/GroupService";
 import {onMounted, ref } from "vue";
 import { RouterLink } from "vue-router";
 
 const classStore = classService();
+const groupStore =groupService()
 
 onMounted(async () => {
   await classStore.getClasses();
@@ -23,6 +25,24 @@ const deleteClass=async()=>{
         }, 3000);
   })
 
+}
+const selectedGroup= ref(null)
+const handleAsignClass=(idClass, nombre)=>{
+  currentClass.value= nombre
+  idCurrentClass.value= idClass
+  asignar_actividad.showModal()
+}
+
+const loading=ref(false)
+const AsignarClase=  async () =>{
+
+  await classStore.AsignClassGroup(selectedGroup.value, idCurrentClass.value)
+      .then(() => {
+        loading.value = true;
+        setTimeout(() => {
+          loading.value = false;
+        }, 3000);
+      })
 }
 
 const handleDelete=(idClass, nombre)=>{
@@ -72,12 +92,8 @@ const handleDelete=(idClass, nombre)=>{
       key="clase._id"
       className="card bg-base-300 shadow-lg  border flex md:flex-row flex-col items-center  gap-2 my-2 p-2"
     >
-      <figure class=" bg-base-100 avatar w-64">
-        <div class="rounded-lg bg-base-100">
-          <img alt="Avatar Tailwind CSS"
-           
-          />
-        </div>
+      <figure class="h-64  w-64 skeleton bg-slate-400">
+        
       </figure>
       <div className="card-body flex-grow p-1">
         <h1 className="card-title text-3xl font-bold text-clip ">
@@ -86,17 +102,12 @@ const handleDelete=(idClass, nombre)=>{
         <h1 className="text-xl">{{ clase.area }}</h1>
         <div class="divider m-0"></div>
         <div className="flex flex-col md:flex-row justify-between p-1 ">
-          <p>{{ clase.alumnos.length }} alumnos</p>
-          <p>{{ clase.finalizado }} finalizado</p>
-          <p>{{ clase?.Valoracion }} Valoracion</p>
-          <p>{{ clase?.Actividades.length }} Actividades</p>
+          <p>Creado por: <b>{{ clase?.profesor.nombre }}</b>
+            </p>
+          <p><i class="fa fa-list"></i>    {{ clase?.Actividades.length }} Actividades </p>
         </div>
         <div class="divider m-0"></div>
         <div className="flex justify-between">
-          <p>{{ clase?.profesor.nombre }}</p>
-          <aside className="badge badge-warning">
-            <p>{{ clase.Estado }}</p>
-          </aside>
         </div>
         <div class="card-actions flex justify-end">
           <RouterLink
@@ -112,7 +123,7 @@ const handleDelete=(idClass, nombre)=>{
               
               class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 flex gap-2"
             >
-              <li><a>Asignar a un grupo</a></li>
+              <li><button @click="handleAsignClass(clase._id, clase.nombre)" class="btn btn-ghost"> Asignar a un grupo</button></li>
               <li  ><button @click="handleDelete(clase._id, clase.nombre)" class="btn btn-sm btn-error">Eliminar clase</button></li>
             </ul>
           </div>
@@ -126,6 +137,8 @@ const handleDelete=(idClass, nombre)=>{
        <i class="fa fa-exclamation-triangle text-error  text-6xl p-2  "></i>
    
     <h2 class="font-bold text-lg p-4 text-center text-error">¿Estas seguro de eliminar la clase <b>{{currentClass}}</b>?</h2>
+
+    
     
     <div class="modal-action">
 
@@ -137,6 +150,40 @@ const handleDelete=(idClass, nombre)=>{
       </button>
       </form>
       
+    </div>
+  </div>
+</dialog>
+
+
+<dialog id="asignar_actividad" class="modal">
+  <div class="modal-box flex items-center flex-col">
+      
+   
+    <h2 class="font-bold text-2xl p-4 text-center">Asignar <b>{{currentClass}}</b> a un grupo</h2>
+{{ selectedGroup }}
+    <label class="label font-lato text-pretty text-left font-bold text-lg "for="">Elige un  Grupo</label>
+    <select v-model="selectedGroup" class="select select-bordered select-accent w-full ">
+      <option disabled value="">Selecciona una opción</option>
+      <option class="p-2 text-xl hover:bg-blue-200" v-for="grupo in groupStore.grupos"  :value="grupo?._id">{{ grupo.nombre }}</option>
+      </select>
+      
+      <div v-if="loading" class="flex justify-center pt-4">
+            <span
+              class="loading loading-spinner text-info loading-lg"
+            >
+            </span>
+          </div>
+    <div v-else class="modal-action w-full flex justify-end gap-2">
+
+      <form method="dialog" class="">
+
+        <!-- if there is a button in form, it will close the modal -->
+        <button class="btn">Cancelar</button>
+       
+      </form>
+       <button :class="!selectedGroup ?'btn-disabled':''" @click="AsignarClase" class="btn btn-primary"  >
+        Asignar
+      </button>
     </div>
   </div>
 </dialog>
