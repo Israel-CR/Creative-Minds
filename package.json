@@ -17,7 +17,7 @@
     "typeface-lato": "^1.1.13",
     "typeface-play": "^1.1.13",
     "typeface-salsa": "^1.1.13",
-    "vue": "^3.4.15",
+    "vue": "^3.4.22",
     "vue-cookies": "^1.8.3",
     "vue-router": "^4.2.5",
     "vuex": "^4.1.0"
